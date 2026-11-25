@@ -1,0 +1,4781 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "WebForms REST API",
+        "version": "1"
+    },
+    "servers": [
+        {
+            "url": "/rest/all"
+        }
+    ],
+    "security": [
+        {
+            "oauth1": []
+        }
+    ],
+    "x-auth": {
+        "type": "oauth1",
+        "signature": "HMAC-SHA256",
+        "actor": "integration"
+    },
+    "x-errors": {
+        "NOT_FOUND": {
+            "http": 404
+        },
+        "ACTOR_NOT_ALLOWED": {
+            "http": 403
+        },
+        "INVALID_JSON": {
+            "http": 400
+        },
+        "VALIDATION_FAILED": {
+            "http": 400
+        },
+        "INVALID_FILTER": {
+            "http": 400
+        },
+        "AMBIGUOUS_REF": {
+            "http": 400
+        },
+        "DRAFT_EXISTS": {
+            "http": 409
+        },
+        "DRAFT_REVISION_MISMATCH": {
+            "http": 409
+        },
+        "LIVE_REVISION_MISMATCH": {
+            "http": 409
+        },
+        "RESULT_REVISION_MISMATCH": {
+            "http": 409
+        },
+        "CONFIRMATION_REQUIRED": {
+            "http": 409
+        },
+        "CONFIRMATION_INVALID": {
+            "http": 409
+        },
+        "PII_GRANT_REQUIRED": {
+            "http": 403
+        },
+        "GRANT_EXPIRED": {
+            "http": 403
+        },
+        "GRANT_EXHAUSTED": {
+            "http": 403
+        },
+        "QUOTA_EXCEEDED": {
+            "http": 429
+        },
+        "LIMIT_EXCEEDED": {
+            "http": 400
+        },
+        "REQUEST_ID_REUSED": {
+            "http": 409
+        },
+        "CONFLICT": {
+            "http": 409
+        },
+        "REPLAY_UNAVAILABLE": {
+            "http": 409
+        },
+        "INDETERMINATE": {
+            "http": 409
+        },
+        "LICENSE_NOT_COVERED": {
+            "http": 403
+        },
+        "INTERNAL": {
+            "http": 500
+        }
+    },
+    "x-body": "Every single-DTO POST wraps its payload as {\"request\": {...}}; see MutationRequestInterface.",
+    "paths": {
+        "/V1/webforms/appearance": {
+            "get": {
+                "operationId": "AppearanceInterface_get",
+                "x-service": "MageMe\\WebFormsApi\\Api\\AppearanceInterface::get",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "operationId": "AppearanceInterface_update",
+                "x-service": "MageMe\\WebFormsApi\\Api\\AppearanceInterface::update",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/capabilities": {
+            "get": {
+                "operationId": "FormReadInterface_getCapabilities",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getCapabilities",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CapabilitiesInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/drafts/{draftId}": {
+            "get": {
+                "operationId": "DraftInterface_get",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::get",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DraftSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/drafts/{draftId}/commands/discard": {
+            "post": {
+                "operationId": "DraftInterface_discard",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::discard",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/drafts/{draftId}/commands/prepare-publish": {
+            "post": {
+                "operationId": "DraftInterface_preparePublish",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::preparePublish",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConfirmationInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/drafts/{draftId}/commands/publish": {
+            "post": {
+                "operationId": "DraftInterface_publish",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::publish",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "A confirmation token is spent when the publish is accepted, also when the plan needed none; a publish refused before that leaves it usable. 409 CONFIRMATION_REQUIRED when the plan needs a token and none was sent; 409 CONFIRMATION_INVALID when the token sent is unknown, malformed, spent, of another draft, or no longer matches the plan: prepare again and ask again. Publishing needs Edit Form Scripts (MageMe_WebForms::api_v1_forms_scripts) when the draft brings in markup that runs code on the storefront, or changes markup that already runs, in a text of the form or an HTML field printed as it is, by the rules of the draft commands: without it the answer is 403 ACTOR_NOT_ALLOWED with details {key, store_id, parts} and nothing is published. Markup the draft leaves as it was does not stop it; switching on a field or section that holds such markup brings it in."
+            }
+        },
+        "/V1/webforms/drafts/{draftId}/commands/{name}": {
+            "post": {
+                "operationId": "DraftInterface_command",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::command",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CommandResponseInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "remove-field takes the confirmation token of the plan like publish does: 409 CONFIRMATION_REQUIRED without one when it is needed, 409 CONFIRMATION_INVALID for an unknown, malformed or spent one. update-form takes the token of prepare-update-form the same way when it writes a live setting whose schema `write` is \"confirm\" or \"script\" (a \"script\" setting also needs MageMe_WebForms::api_v1_forms_scripts; a \"none\" setting is refused with 400). It also takes one when submitter_email_field_id changes whom a switched-on notification with a submitter source sends to: changes then holds {key: \"submitter_email_field_id\", kind: \"recipients_change\", subject {entity, id, name}, detail {recipients [{store_id, source, field_code, role, before, after}]}}, as recipients_change in the publish plan. The answer or refusal of prepare-update-form and prepare-remove-field is not kept, since the answer carries a token: a retry under the same request_id answers 409 REPLAY_UNAVAILABLE, so each prepare goes out under a new request_id."
+            }
+        },
+        "/V1/webforms/drafts/{draftId}/document": {
+            "get": {
+                "operationId": "DraftInterface_getDocument",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::getDocument",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/drafts/{draftId}/trash": {
+            "get": {
+                "operationId": "DraftInterface_getTrash",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::getTrash",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrashInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/drafts/{draftId}/validate": {
+            "post": {
+                "operationId": "DraftInterface_validate",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::validate",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "draftId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidateResponseInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/form-templates": {
+            "get": {
+                "operationId": "FormReadInterface_getTemplates",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getTemplates",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TemplateSummarySearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/form/{id}": {
+            "get": {
+                "operationId": "FormRepositoryInterface_getDataById",
+                "x-service": "MageMe\\WebForms\\Api\\FormRepositoryInterface::getDataById",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "storeId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/form/{id}/results": {
+            "get": {
+                "operationId": "FormRepositoryInterface_getResultsById",
+                "x-service": "MageMe\\WebForms\\Api\\FormRepositoryInterface::getResultsById",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "customerId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "minimum": 1,
+                            "maximum": 100
+                        },
+                        "description": "Submissions per page; a larger value is cut to 100."
+                    },
+                    {
+                        "name": "currentPage",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1,
+                            "minimum": 1
+                        },
+                        "description": "The page to return, from 1. Read pages until one comes back shorter than the page size."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "One page of the form's submissions, oldest first (3.x route)"
+            }
+        },
+        "/V1/webforms/form/{id}/submit": {
+            "post": {
+                "operationId": "FormRepositoryInterface_submitById",
+                "x-service": "MageMe\\WebForms\\Api\\FormRepositoryInterface::submitById",
+                "x-acl": [
+                    "MageMe_WebForms::api_submission"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Conflicting id and code, an ambiguous code, or an update naming no field of the form",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Submit the form, or update one of its submissions (3.x route)",
+                "description": "Each key of `field` (and of `field_other`, the text typed for an Other option) is a field id or a field code. An integer key is an id and is passed on as it is. Any other key is the code of an active field of this form, matched exactly (case-sensitive) after trimming; a code that names no such field is ignored, as an unknown id is. The same field sent by id and by code must carry the same value (numbers and booleans compared as strings, strings trimmed, null equal to \"\", list order ignored); the first of them is submitted. With `result_id` the submission is updated; only the fields sent are changed, the others keep their values. Answers that fail validation come back as 200 with `success: false` and `errors`. 422 answers, given only to a caller the form is open to: VALIDATION_FAILED with details {field_id, code} when an id and a code of one field carry different values; AMBIGUOUS_REF with details {entity, ref, candidate_ids} when a code belongs to several active fields of the form (send that value by id); VALIDATION_FAILED with empty details when an update (`result_id`) names no field of the form by code and nothing else.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "field": {
+                                        "type": "object",
+                                        "additionalProperties": true,
+                                        "description": "Answers keyed by field id or field code"
+                                    },
+                                    "field_other": {
+                                        "type": "object",
+                                        "additionalProperties": {
+                                            "type": "string"
+                                        },
+                                        "description": "Other-option text keyed by field id or field code"
+                                    },
+                                    "result_id": {
+                                        "type": "integer",
+                                        "description": "The submission to update; omit to create one"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms": {
+            "get": {
+                "operationId": "FormReadInterface_getList",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getList",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "searchCriteria",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormSummarySearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "FormWriteInterface_create",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormWriteInterface::create",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_create"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/from-template": {
+            "post": {
+                "operationId": "FormWriteInterface_createFromTemplate",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormWriteInterface::createFromTemplate",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_create"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}": {
+            "get": {
+                "operationId": "FormReadInterface_get",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::get",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}/changes": {
+            "get": {
+                "operationId": "SubmissionInterface_changes",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::changes",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The next_cursor of the previous read, passed back unchanged. Omit to start from the beginning."
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 200,
+                            "maximum": 500
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubmissionChangeFeedInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Submissions of this form that changed, oldest first, resumable through next_cursor"
+            }
+        },
+        "/V1/webforms/forms/{formId}/commands/activate": {
+            "post": {
+                "operationId": "FormWriteInterface_activate",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormWriteInterface::activate",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Switching a form on needs Edit Form Scripts (MageMe_WebForms::api_v1_forms_scripts) when a text of the form runs code on the storefront: a switched-on HTML field in a switched-on section (or in none) printed as it is, or the description, success message or text under the form (a script, an event handler, a javascript: address, a directive other than var, if, depend and trans in the form texts, and other than store url, store direct_url, view url and media url with no other parameter; in an HTML field any directive but store url, store direct_url and media url with no other parameter inside a quoted attribute value): without it the answer is 403 ACTOR_NOT_ALLOWED with details {key, store_id, parts} and the form stays off; grant the permission or switch the form on in the admin. Switching a form off never needs it, so an integration without the permission can switch such a form off but not back on. A field or section that is off runs nothing until it is switched on, and switching it on in a draft, through restore-version or by publishing takes the permission."
+            }
+        },
+        "/V1/webforms/forms/{formId}/commands/duplicate": {
+            "post": {
+                "operationId": "FormWriteInterface_duplicate",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormWriteInterface::duplicate",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_create"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Copying a form needs Edit Form Scripts (MageMe_WebForms::api_v1_forms_scripts) when a text of the form runs code on the storefront, as for activate: without it the answer is 403 ACTOR_NOT_ALLOWED with details {key, store_id, parts} and no copy is made; grant the permission or copy the form in the admin."
+            }
+        },
+        "/V1/webforms/forms/{formId}/commands/restore-version": {
+            "post": {
+                "operationId": "DraftInterface_restoreVersion",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::restoreVersion",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DraftSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}/confirmations/commands/{name}": {
+            "post": {
+                "operationId": "ConfirmationContentManagementInterface_command",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ConfirmationContentManagementInterface::command",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConfirmationCommandResponseInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "set-content changes the message a store view shows at once only when it does not change; a change answers 409 CONFIRMATION_REQUIRED with {changes: {changed, length {before, after}, links {added, removed}}} unless it carries the confirmation_token of prepare-set-content, which takes the same body, writes nothing and answers {confirmation_ref, store_code, requires_confirmation, confirmation_token, expires_at, changes}."
+            }
+        },
+        "/V1/webforms/forms/{formId}/confirmations/content/{storeCode}": {
+            "get": {
+                "operationId": "ConfirmationContentManagementInterface_getContents",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ConfirmationContentManagementInterface::getContents",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "storeCode",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConfirmationContentsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}/document": {
+            "get": {
+                "operationId": "FormReadInterface_getDocument",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getDocument",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "storeCode",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}/draft": {
+            "post": {
+                "operationId": "DraftInterface_open",
+                "x-service": "MageMe\\WebFormsApi\\Api\\DraftInterface::open",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DraftSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Opens the form's draft, or returns the one already open. 409 CONFLICT when another change to this form holds it: retry shortly, with the same request_id."
+            }
+        },
+        "/V1/webforms/forms/{formId}/notifications/commands/{name}": {
+            "post": {
+                "operationId": "NotificationManagementInterface_command",
+                "x-service": "MageMe\\WebFormsApi\\Api\\NotificationManagementInterface::command",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationCommandResponseInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "update, set-content, set-store-settings and set-conditions on a switched-on notification that change what it sends or to whom answer 409 CONFIRMATION_REQUIRED with {notification_id, changes} unless they carry the confirmation_token of the matching prepare-<command>; prepare-<command> takes the same body, writes nothing and answers {notification_id, command, requires_confirmation, confirmation_token, expires_at, changes}. 409 CONFIRMATION_INVALID for an unknown, malformed, spent or mismatched token."
+            }
+        },
+        "/V1/webforms/forms/{formId}/pdf-documents/commands/{name}": {
+            "post": {
+                "operationId": "PdfManagementInterface_command",
+                "x-service": "MageMe\\WebFormsApi\\Api\\PdfManagementInterface::command",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PdfCommandResponseInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "install-preset with an unknown `code` answers 404 NOT_FOUND, as does any command on a form that does not exist."
+            }
+        },
+        "/V1/webforms/forms/{formId}/stats": {
+            "get": {
+                "operationId": "SubmissionInterface_stats",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::stats",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FormStatsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}/translations/{storeCode}": {
+            "get": {
+                "operationId": "FormReadInterface_getTranslations",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getTranslations",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "storeCode",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TranslationsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}/versions": {
+            "get": {
+                "operationId": "FormReadInterface_getVersions",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getVersions",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VersionSummarySearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/forms/{formId}/versions/{versionId}/document": {
+            "get": {
+                "operationId": "FormReadInterface_getVersionDocument",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getVersionDocument",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "formId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "versionId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/imports": {
+            "post": {
+                "operationId": "ImportInterface_create",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ImportInterface::create",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_import"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/imports/{importId}": {
+            "get": {
+                "operationId": "ImportInterface_get",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ImportInterface::get",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_import"
+                ],
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/imports/{importId}/chunk": {
+            "post": {
+                "operationId": "ImportInterface_upload",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ImportInterface::upload",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_import"
+                ],
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/imports/{importId}/commands/cancel": {
+            "post": {
+                "operationId": "ImportInterface_cancel",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ImportInterface::cancel",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_import"
+                ],
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/imports/{importId}/commands/commit": {
+            "post": {
+                "operationId": "ImportInterface_commit",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ImportInterface::commit",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_import"
+                ],
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/imports/{importId}/commands/finalize": {
+            "post": {
+                "operationId": "ImportInterface_finalize",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ImportInterface::finalize",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_import"
+                ],
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/imports/{importId}/report-grant": {
+            "post": {
+                "operationId": "ImportInterface_reportGrant",
+                "x-service": "MageMe\\WebFormsApi\\Api\\ImportInterface::reportGrant",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_import"
+                ],
+                "parameters": [
+                    {
+                        "name": "importId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/notifications/{notificationId}/activation/confirm": {
+            "post": {
+                "operationId": "NotificationManagementInterface_confirmActivation",
+                "x-service": "MageMe\\WebFormsApi\\Api\\NotificationManagementInterface::confirmActivation",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "notificationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/notifications/{notificationId}/activation/prepare": {
+            "post": {
+                "operationId": "NotificationManagementInterface_prepareActivation",
+                "x-service": "MageMe\\WebFormsApi\\Api\\NotificationManagementInterface::prepareActivation",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "notificationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ActivationConfirmationInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/notifications/{notificationId}/deactivate": {
+            "post": {
+                "operationId": "NotificationManagementInterface_deactivate",
+                "x-service": "MageMe\\WebFormsApi\\Api\\NotificationManagementInterface::deactivate",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "notificationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/quick-responses": {
+            "get": {
+                "operationId": "SubmissionInterface_quickResponses",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::quickResponses",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/QuickResponseSearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/result/{id}": {
+            "get": {
+                "operationId": "ResultRepositoryInterface_getDataById",
+                "x-service": "MageMe\\WebForms\\Api\\ResultRepositoryInterface::getDataById",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/result/{id}/update": {
+            "post": {
+                "operationId": "ResultUpdateInterface_updateById",
+                "x-service": "MageMe\\WebForms\\Api\\ResultUpdateInterface::updateById",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResultUpdateResultInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/commands/prepare-mass-status": {
+            "post": {
+                "operationId": "SubmissionInterface_prepareMassStatus",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::prepareMassStatus",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_edit"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConfirmationInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Body as for mass-status (items_json, status_code). impact_json: {notifies_customer, status {code, label}, email_template, notifications [{id, name}], count (submissions), recipients (the first 10 masked addresses that get a notification)}. When the status emails the customers, mass-status answers 409 CONFIRMATION_REQUIRED unless it carries this confirmation_token; the token is bound to the status code, the listed submissions and the mail: if the status starts or stops emailing the customers, its template, its notifications or the recipients change before the command, mass-status answers 409 CONFIRMATION_INVALID and a new prepare is needed. A status that a form of the listed submissions does not take is refused with 400 VALIDATION_FAILED, as mass-status refuses it, and no token is issued."
+            }
+        },
+        "/V1/webforms/results/commands/{name}": {
+            "post": {
+                "operationId": "SubmissionInterface_massCommand",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::massCommand",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MassOutcomeInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/export": {
+            "post": {
+                "operationId": "SubmissionInterface_export",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::export",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_export"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExportJobInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/exports/{exportId}": {
+            "get": {
+                "operationId": "SubmissionInterface_exportStatus",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::exportStatus",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_export"
+                ],
+                "parameters": [
+                    {
+                        "name": "exportId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExportJobInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/exports/{exportId}/download-grant": {
+            "post": {
+                "operationId": "SubmissionInterface_exportGrant",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::exportGrant",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_export"
+                ],
+                "parameters": [
+                    {
+                        "name": "exportId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DownloadGrantInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/pii-grants": {
+            "post": {
+                "operationId": "SubmissionInterface_issuePiiGrant",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::issuePiiGrant",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_pii_read"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PiiGrantInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/pii-grants/{grantId}/revoke": {
+            "post": {
+                "operationId": "SubmissionInterface_revokePiiGrant",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::revokePiiGrant",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_pii_read"
+                ],
+                "parameters": [
+                    {
+                        "name": "grantId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/search": {
+            "post": {
+                "operationId": "SubmissionInterface_search",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::search",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResultSearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/{resultId}": {
+            "get": {
+                "operationId": "SubmissionInterface_get",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::get",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "projection",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "grantId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResultSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/{resultId}/attachments": {
+            "get": {
+                "operationId": "SubmissionInterface_attachments",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::attachments",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "grantId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "A grant carrying the sys:filenames scope. Not needed by a caller holding Disclose Personal Data."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AttachmentSearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/{resultId}/attachments/{attachmentId}/download-grant": {
+            "post": {
+                "operationId": "SubmissionInterface_attachmentGrant",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::attachmentGrant",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_attachments_read"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "attachmentId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DownloadGrantInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/{resultId}/commands/prepare-reply": {
+            "post": {
+                "operationId": "SubmissionInterface_prepareReply",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::prepareReply",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_reply"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConfirmationInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/{resultId}/commands/prepare-set-approval": {
+            "post": {
+                "operationId": "SubmissionInterface_prepareSetApproval",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::prepareSetApproval",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConfirmationInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "Body {approval}: not_approved, pending or approved; takes Approve Results on top of Edit Submissions. impact_json: {notifies_customer, approval {from, to}, notifications [{id, name}] (the switched-on notifications that go to the submitter, or to an address the visitor typed into a field, on this change), registers_customer, count, recipient (masked), result_revision}; {notifies_customer: false, result_revision} when the customer gets nothing. When the approval emails the customer or registers a customer account, set-approval answers 409 CONFIRMATION_REQUIRED with the same details unless it carries this confirmation_token; the token is bound to the approval, the submission revision and the mails it confirms: a notification switched on or off since the prepare makes it CONFIRMATION_INVALID."
+            }
+        },
+        "/V1/webforms/results/{resultId}/commands/prepare-set-status": {
+            "post": {
+                "operationId": "SubmissionInterface_prepareSetStatus",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::prepareSetStatus",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConfirmationInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": "impact_json: {notifies_customer, status {code, label}, email_template, notifications [{id, name}] (the switched-on status-changed notifications that answer this status and go to the submitter or to an address the visitor typed), count, recipient (masked), result_revision}. When the status emails the customer, set-status answers 409 CONFIRMATION_REQUIRED with the same details unless it carries this confirmation_token; the token is bound to the status code, the submission revision and the mail: if the status starts or stops emailing the customer, its template, its notifications or the recipient change before the command, set-status answers 409 CONFIRMATION_INVALID and a new prepare is needed. A status the form does not take (custom statuses switched off on the form, a status being removed, one outside the form's set) is refused with 400 VALIDATION_FAILED, as set-status refuses it, and no token is issued."
+            }
+        },
+        "/V1/webforms/results/{resultId}/commands/reply": {
+            "post": {
+                "operationId": "SubmissionInterface_reply",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::reply",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_reply"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReplyOutcomeInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/{resultId}/commands/{name}": {
+            "post": {
+                "operationId": "SubmissionInterface_command",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::command",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_edit"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResultSummaryInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "request"
+                                ],
+                                "properties": {
+                                    "request": {
+                                        "$ref": "#/components/schemas/MutationRequestInterface"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/results/{resultId}/notes": {
+            "get": {
+                "operationId": "SubmissionInterface_notes",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::notes",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "resultId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "grantId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "A grant carrying the sys:notes scope. Not needed by a caller holding Disclose Personal Data."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NoteSearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/schema/{kind}": {
+            "get": {
+                "operationId": "FormReadInterface_getSchema",
+                "x-service": "MageMe\\WebFormsApi\\Api\\FormReadInterface::getSchema",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_forms_view"
+                ],
+                "parameters": [
+                    {
+                        "name": "kind",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SchemaInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/statuses": {
+            "get": {
+                "operationId": "SubmissionInterface_statuses",
+                "x-service": "MageMe\\WebFormsApi\\Api\\SubmissionInterface::statuses",
+                "x-acl": [
+                    "MageMe_WebForms::api_v1_results_view"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StatusSummarySearchResultsInterface"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/V1/webforms/upload/{id}": {
+            "post": {
+                "operationId": "DropzoneApiUploaderInterface_upload",
+                "x-service": "MageMe\\WebForms\\Api\\Utility\\DropzoneApiUploaderInterface::upload",
+                "x-acl": [
+                    "MageMe_WebForms::api_submission"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ActivationConfirmationInterface": {
+                "type": "object",
+                "properties": {
+                    "confirmation_token": {
+                        "type": "string"
+                    },
+                    "expires_at": {
+                        "type": "string"
+                    },
+                    "diff_json": {
+                        "type": "string",
+                        "description": "The reviewed change: recipients added/removed, audience, envelope, senders, links, content source. \u2014 JSON-encoded"
+                    },
+                    "first_activation": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "AttachmentInterface": {
+                "type": "object",
+                "properties": {
+                    "attachment_id": {
+                        "type": "integer"
+                    },
+                    "field_id": {
+                        "type": "integer"
+                    },
+                    "extension": {
+                        "type": "string"
+                    },
+                    "size": {
+                        "type": "integer"
+                    },
+                    "mime_type": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "untrusted": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "AttachmentSearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AttachmentInterface"
+                        }
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            },
+            "CapabilitiesInterface": {
+                "type": "object",
+                "properties": {
+                    "api_version": {
+                        "type": "string"
+                    },
+                    "document_schema_version": {
+                        "type": "string"
+                    },
+                    "schema_digest": {
+                        "type": "string"
+                    },
+                    "field_types": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "features_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    },
+                    "limits_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    }
+                }
+            },
+            "CommandResponseInterface": {
+                "type": "object",
+                "properties": {
+                    "draft_id": {
+                        "type": "integer"
+                    },
+                    "draft_revision": {
+                        "type": "integer"
+                    },
+                    "changed": {
+                        "type": "boolean"
+                    },
+                    "payload_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    }
+                }
+            },
+            "ConfirmationCommandResponseInterface": {
+                "type": "object",
+                "properties": {
+                    "form_id": {
+                        "type": "integer"
+                    },
+                    "changed": {
+                        "type": "boolean"
+                    },
+                    "payload_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    }
+                }
+            },
+            "ConfirmationContentsInterface": {
+                "type": "object",
+                "properties": {
+                    "store_code": {
+                        "type": "string"
+                    },
+                    "contents_json": {
+                        "type": "string",
+                        "description": "The store view's own messages of the confirmations, the phrases it shows beside them, and their locale. \u2014 JSON-encoded"
+                    }
+                }
+            },
+            "ConfirmationInterface": {
+                "type": "object",
+                "properties": {
+                    "confirmation_token": {
+                        "type": "string"
+                    },
+                    "expires_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "impact_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    },
+                    "requires_confirmation": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "DocumentInterface": {
+                "type": "object",
+                "properties": {
+                    "schema_version": {
+                        "type": "string"
+                    },
+                    "schema_digest": {
+                        "type": "string"
+                    },
+                    "document_json": {
+                        "type": "string",
+                        "description": "JSON-encoded form document"
+                    },
+                    "revision": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "DownloadGrantInterface": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    },
+                    "expires_at": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "DraftSummaryInterface": {
+                "type": "object",
+                "properties": {
+                    "draft_id": {
+                        "type": "integer"
+                    },
+                    "live_id": {
+                        "type": "integer"
+                    },
+                    "draft_revision": {
+                        "type": "integer"
+                    },
+                    "live_revision": {
+                        "type": "integer"
+                    },
+                    "started_by_type": {
+                        "type": "string"
+                    },
+                    "started_by_id": {
+                        "type": "integer"
+                    },
+                    "started_by_name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "code": {
+                                "type": "string",
+                                "enum": [
+                                    "NOT_FOUND",
+                                    "ACTOR_NOT_ALLOWED",
+                                    "INVALID_JSON",
+                                    "VALIDATION_FAILED",
+                                    "INVALID_FILTER",
+                                    "AMBIGUOUS_REF",
+                                    "DRAFT_EXISTS",
+                                    "DRAFT_REVISION_MISMATCH",
+                                    "LIVE_REVISION_MISMATCH",
+                                    "RESULT_REVISION_MISMATCH",
+                                    "CONFIRMATION_REQUIRED",
+                                    "CONFIRMATION_INVALID",
+                                    "PII_GRANT_REQUIRED",
+                                    "GRANT_EXPIRED",
+                                    "GRANT_EXHAUSTED",
+                                    "QUOTA_EXCEEDED",
+                                    "LIMIT_EXCEEDED",
+                                    "REQUEST_ID_REUSED",
+                                    "CONFLICT",
+                                    "REPLAY_UNAVAILABLE",
+                                    "INDETERMINATE",
+                                    "LICENSE_NOT_COVERED",
+                                    "INTERNAL"
+                                ]
+                            },
+                            "details_schema_version": {
+                                "type": "string"
+                            },
+                            "details_json": {
+                                "type": "string",
+                                "description": "JSON-encoded typed details"
+                            }
+                        }
+                    }
+                }
+            },
+            "ExportJobInterface": {
+                "type": "object",
+                "properties": {
+                    "export_id": {
+                        "type": "integer"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "row_count": {
+                        "type": "integer"
+                    },
+                    "raw": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "finished_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "error_code": {
+                        "type": "string"
+                    },
+                    "truncated": {
+                        "type": "boolean",
+                        "description": "True when the export stopped at the row limit; the artifact is incomplete."
+                    }
+                }
+            },
+            "FormStatsInterface": {
+                "type": "object",
+                "properties": {
+                    "form_id": {
+                        "type": "integer"
+                    },
+                    "results_total": {
+                        "type": "integer"
+                    },
+                    "results_unread": {
+                        "type": "integer"
+                    },
+                    "results_unreplied": {
+                        "type": "integer"
+                    },
+                    "last_submitted_at": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "FormSummaryInterface": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "revision": {
+                        "type": "integer"
+                    },
+                    "is_active": {
+                        "type": "boolean"
+                    },
+                    "has_draft": {
+                        "type": "boolean"
+                    },
+                    "draft_started_by_type": {
+                        "type": "string"
+                    },
+                    "draft_started_by_name": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "What the command changed beyond the request, for the caller to pass on; empty for a plain read."
+                    },
+                    "live_settings": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "create with activate: true: the settings of the new form whose effect reaches beyond its page (write \"confirm\" in the catalog) and that went live at once with it; empty otherwise."
+                    },
+                    "has_executable_markup": {
+                        "type": "boolean",
+                        "nullable": true,
+                        "description": "GET forms/{formId} only: whether a text of the form (a switched-on HTML field in a switched-on section the storefront prints as it is, the description, the success message, the text under the form) holds markup that runs code. Switching such a form on or copying it takes Edit Form Scripts, so an integration without it can switch the form off but not back on. Left out of every other answer."
+                    }
+                }
+            },
+            "FormSummarySearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/FormSummaryInterface"
+                        }
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            },
+            "MassOutcomeInterface": {
+                "type": "object",
+                "properties": {
+                    "items_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    },
+                    "succeeded": {
+                        "type": "integer"
+                    },
+                    "failed": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "MutationRequestInterface": {
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string"
+                    },
+                    "expected_draft_revision": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "expected_live_revision": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "expected_result_revision": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "confirmation_token": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "store_code": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "field_ref": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "fieldset_ref": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "logic_ref": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "type": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "target_type": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "after_field_ref": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "position": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "settings_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "use_default_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "positions_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "rules_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "translations_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "mode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "document_json": {
+                        "type": "string",
+                        "description": "JSON-encoded form document",
+                        "nullable": true
+                    },
+                    "version_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "code": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "template_code": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "activate": {
+                        "type": "boolean"
+                    },
+                    "values_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "source_system": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "schema_version": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "chunk_base64": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "artifact_digest": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "artifact_size": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "status_code": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "approval": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "expected_status_code": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "Compare-and-set guard for set-status: omitted = no check, \"\" = expect no status assigned, code = expect that status."
+                    },
+                    "admin_user_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "order_id": {
+                        "oneOf": [
+                            {
+                                "type": "integer",
+                                "minimum": 1,
+                                "nullable": true
+                            },
+                            {
+                                "type": "string",
+                                "pattern": "^[0-9]+$"
+                            }
+                        ],
+                        "description": "Order id as sent: an integer or a string of digits; the service refuses anything else."
+                    },
+                    "order_number": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "text": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "body_text": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "quick_response_code": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "items_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "form_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "field_ids_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "max_results": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "purpose": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "operation": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "filter_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "field_filter_json": {
+                        "type": "string",
+                        "description": "JSON-encoded",
+                        "nullable": true
+                    },
+                    "grant_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "attachment_id": {
+                        "type": "integer",
+                        "nullable": true
+                    },
+                    "notification_ref": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The uuid of the notification a command addresses."
+                    },
+                    "notification_json": {
+                        "type": "string",
+                        "description": "A notification node, or the part of one a command sets, as JSON. \u2014 JSON-encoded",
+                        "nullable": true
+                    },
+                    "confirmation_ref": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The uuid of the confirmation a command addresses."
+                    },
+                    "confirmation_json": {
+                        "type": "string",
+                        "description": "The content a confirmation command sets for a store view, as JSON: {\"message\": text or null}. \u2014 JSON-encoded",
+                        "nullable": true
+                    },
+                    "trash_ref": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The Trash row restore-field brings back: \"draft:<field id>\" or \"live:<field id>\", as the trash lists it."
+                    },
+                    "pdf_document_ref": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The uuid of the PDF document a command addresses."
+                    },
+                    "pdf_document_json": {
+                        "type": "string",
+                        "description": "A PDF document node, the slots a command sets, or the bindings list, as JSON. \u2014 JSON-encoded",
+                        "nullable": true
+                    }
+                }
+            },
+            "NoteInterface": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "untrusted": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "NoteSearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/NoteInterface"
+                        }
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            },
+            "NotificationCommandResponseInterface": {
+                "type": "object",
+                "properties": {
+                    "form_id": {
+                        "type": "integer"
+                    },
+                    "changed": {
+                        "type": "boolean"
+                    },
+                    "payload_json": {
+                        "type": "string",
+                        "description": "The command's own result (uuid, notification_id, revision_id \u2026) as JSON. \u2014 JSON-encoded"
+                    }
+                }
+            },
+            "PdfCommandResponseInterface": {
+                "type": "object",
+                "properties": {
+                    "form_id": {
+                        "type": "integer"
+                    },
+                    "changed": {
+                        "type": "boolean"
+                    },
+                    "payload_json": {
+                        "type": "string",
+                        "description": "The command's own answer as JSON: the document's uuid and id, the revision written, the bindings, or what a preset added. \u2014 JSON-encoded"
+                    }
+                }
+            },
+            "PiiGrantInterface": {
+                "type": "object",
+                "properties": {
+                    "grant_id": {
+                        "type": "integer"
+                    },
+                    "form_id": {
+                        "type": "integer"
+                    },
+                    "operation": {
+                        "type": "string"
+                    },
+                    "field_ids_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    },
+                    "max_results": {
+                        "type": "integer"
+                    },
+                    "remaining": {
+                        "type": "integer"
+                    },
+                    "expires_at": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "QuickResponseInterface": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "QuickResponseSearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/QuickResponseInterface"
+                        }
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            },
+            "ReplyOutcomeInterface": {
+                "type": "object",
+                "properties": {
+                    "outbox_id": {
+                        "type": "integer"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "message_id": {
+                        "type": "string"
+                    },
+                    "recipient_masked": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ResultSearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResultSummaryInterface"
+                        }
+                    },
+                    "has_more": {
+                        "type": "boolean",
+                        "description": "Whether another page exists; the only cardinality signal when total_count is -1 (personal-data predicates)."
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            },
+            "ResultSummaryInterface": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "form_id": {
+                        "type": "integer"
+                    },
+                    "store_id": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "status_code": {
+                        "type": "string"
+                    },
+                    "approval": {
+                        "type": "string",
+                        "description": "Approval verdict: not_approved, pending, approved or completed."
+                    },
+                    "assignee_admin_user_id": {
+                        "type": "integer"
+                    },
+                    "is_read": {
+                        "type": "boolean"
+                    },
+                    "is_replied": {
+                        "type": "boolean"
+                    },
+                    "reference_number": {
+                        "type": "string"
+                    },
+                    "result_revision": {
+                        "type": "integer"
+                    },
+                    "projection": {
+                        "type": "string"
+                    },
+                    "values_json": {
+                        "type": "string",
+                        "description": "The submission's answers: {\"fields\":[{\"field_id\":12,\"code\":\"email\",\"type\":\"email\",\"class\":\"pii\",\"state\":\"masked\",\"value\":null,\"display\":\"a***@***\"}],\"submitter_email\":{...},\"customer_id\":{...},\"customer_ip\":{...}}. An answer that chose the Other option of its field carries one more key, `other_text`: the text the visitor typed, or null when none is stored or the answer is withheld. The answer `__other__` of a Product field names a product that is not in the catalog and carries the key the same way, with the name the visitor typed; no other answer has the key. update-values writes either answer as the pair {\"value\":\"__other__\",\"other_text\":\"\u2026\"} in place of the plain value; a Product field takes the pair only while its `is_allow_not_in_catalog` is on, and any other field refuses it. A pair whose value does not choose `__other__` is refused when its `other_text` holds a text, since the text would not be stored; `other_text` null or empty means no text was sent. The value of a Dynamic Grid answer is its rows; a row whose cell in a Product column is `__other__` names a product that is not in the catalog and carries the visitor's text under the key `<column code>:other_text`, beside that cell only. Only a Product column whose `allow_not_in_catalog` is \"1\" takes such a row. `state` is either `disclosed` or `masked`, and nothing else. Every entry, including the three system ones, carries the same envelope: `value` holds the real answer when the caller may see it and null when it is withheld, and the pseudonymized rendering travels separately in `display` (null once disclosed). A withheld value never occupies the `value` slot, so a client that copies `value` into its own records stores an absence it can act on rather than a mask it cannot tell apart from an answer. \u2014 JSON-encoded"
+                    },
+                    "masked_count": {
+                        "type": "integer"
+                    },
+                    "untrusted": {
+                        "type": "boolean"
+                    },
+                    "linked_orders_json": {
+                        "type": "string",
+                        "description": "Orders linked to the submission as a JSON array; null when the integration may not view orders. A `source` of `order_email` marks an order the visitor typed into an Order field, linked because the submission's email matches the order's email; the order was not picked from the customer's own list, so the visitor's identity and ownership of the order are not verified. \u2014 JSON-encoded",
+                        "nullable": true
+                    },
+                    "customer_group": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "What a set-approval did to an existing account's customer group (changed, pending, failed); needs PII access."
+                    },
+                    "customer_group_text": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The customer group outcome in a sentence; null with customer_group."
+                    }
+                }
+            },
+            "ResultUpdateResultInterface": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "result_id": {
+                        "type": "integer",
+                        "nullable": true
+                    }
+                }
+            },
+            "SchemaInterface": {
+                "type": "object",
+                "properties": {
+                    "kind": {
+                        "type": "string"
+                    },
+                    "schema_version": {
+                        "type": "string"
+                    },
+                    "schema_digest": {
+                        "type": "string"
+                    },
+                    "schema_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    }
+                }
+            },
+            "StatusSummaryInterface": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "integer"
+                    },
+                    "is_notify_customer": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "StatusSummarySearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StatusSummaryInterface"
+                        }
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            },
+            "SubmissionChangeFeedInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubmissionChangeInterface"
+                        }
+                    },
+                    "next_cursor": {
+                        "type": "string",
+                        "description": "Opaque by contract; pass it back unchanged."
+                    },
+                    "high_water_mark": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "The point up to which this feed is complete. Anything stamped later is withheld until it can be ordered safely, so a reader that stops here has missed nothing.",
+                        "format": "date-time"
+                    },
+                    "has_more": {
+                        "type": "boolean"
+                    },
+                    "form_deleted": {
+                        "type": "boolean",
+                        "description": "True when the form itself was deleted: every submission comes as \"deleted\". Read to the end, then drop your copy of the form."
+                    }
+                }
+            },
+            "SubmissionChangeInterface": {
+                "type": "object",
+                "properties": {
+                    "result_id": {
+                        "type": "integer"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "nullable": true,
+                        "format": "date-time"
+                    },
+                    "kind": {
+                        "type": "string",
+                        "description": "\"changed\" while the submission is still there, \"deleted\" once it is gone",
+                        "enum": [
+                            "changed",
+                            "deleted"
+                        ]
+                    }
+                }
+            },
+            "TemplateSummaryInterface": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                }
+            },
+            "TemplateSummarySearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TemplateSummaryInterface"
+                        }
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            },
+            "TranslationsInterface": {
+                "type": "object",
+                "properties": {
+                    "store_code": {
+                        "type": "string"
+                    },
+                    "translations_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    }
+                }
+            },
+            "TrashInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TrashItemInterface"
+                        }
+                    },
+                    "purge_enabled": {
+                        "type": "boolean",
+                        "description": "Whether trashed fields are deleted for good after getPurgeDays()."
+                    },
+                    "purge_days": {
+                        "type": "integer"
+                    },
+                    "draft_revision": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "TrashItemInterface": {
+                "type": "object",
+                "properties": {
+                    "trash_ref": {
+                        "type": "string",
+                        "description": "What restore-field takes: \"draft:<field id>\" or \"live:<field id>\"."
+                    },
+                    "source": {
+                        "type": "string",
+                        "description": "\"draft\" for a field removed in this draft, \"live\" for a field a publish removed from the live form."
+                    },
+                    "field_id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "section": {
+                        "type": "string",
+                        "description": "The section the field was in; empty for a form-level field."
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "restorable_until": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "When the purge removes it for good; null while the trash is never purged."
+                    },
+                    "has_data": {
+                        "type": "boolean",
+                        "description": "Whether submissions hold answers or files of the field."
+                    }
+                }
+            },
+            "ValidateResponseInterface": {
+                "type": "object",
+                "properties": {
+                    "errors_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    },
+                    "warnings_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    },
+                    "impact_json": {
+                        "type": "string",
+                        "description": "JSON-encoded"
+                    },
+                    "requires_confirmation": {
+                        "type": "boolean"
+                    },
+                    "plan_digest": {
+                        "type": "string"
+                    }
+                }
+            },
+            "VersionSummaryInterface": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "form_id": {
+                        "type": "integer"
+                    },
+                    "operation": {
+                        "type": "string"
+                    },
+                    "captured_at": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "replaced_by_admin_id": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "VersionSummarySearchResultsInterface": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/VersionSummaryInterface"
+                        }
+                    },
+                    "search_criteria": {
+                        "type": "object",
+                        "nullable": true,
+                        "description": "The criteria the page was built from (echoed by the framework); null for fixed lists"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Get total count."
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "oauth1": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization",
+                "description": "OAuth 1.0a (RFC 5849) header signed with HMAC-SHA256 using a Magento Integration consumer key/secret and access token/secret."
+            }
+        }
+    }
+}

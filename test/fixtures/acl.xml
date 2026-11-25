@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!-- ACL resources of WebForms Suite, kept for tests -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="MageMe_Core::extensions" title="MageMe Extensions" sortOrder="50">
+                    <resource id="MageMe_WebForms::webforms" title="WebForms" sortOrder="10">
+                        <resource id="MageMe_WebForms::inbox" title="Inbox" sortOrder="0"/>
+                        <resource id="MageMe_WebForms::manage_forms" title="Manage Forms" sortOrder="1">
+                            <resource id="MageMe_WebForms::add_form" title="Add Form" sortOrder="10"/>
+                            <resource id="MageMe_WebForms::save_form" title="Edit Form" sortOrder="20"/>
+                            <resource id="MageMe_WebForms::delete_form" title="Delete Form" sortOrder="30"/>
+                            <resource id="MageMe_WebForms::edit_result" title="Edit Result" sortOrder="40">
+                                <resource id="MageMe_WebForms::erase_personal_data" title="Erase Personal Data" sortOrder="10"/>
+                            </resource>
+                            <resource id="MageMe_WebForms::approve_result" title="Approve Results" sortOrder="42"/>
+                            <resource id="MageMe_WebForms::reply" title="Reply To Customer" sortOrder="50"/>
+                            <resource id="MageMe_WebForms::audit_log" title="View Audit Log" sortOrder="90"/>
+                        </resource>
+                        <resource id="MageMe_WebForms::quickresponse" title="Manage Quick Responses" sortOrder="2"/>
+                        <!-- One API block, a sibling of Manage Forms as in 3.x. Retired ids, never declared again: api_info, api_edit_result, api_v1 -->
+                        <resource id="MageMe_WebForms::api" title="API" sortOrder="3">
+                            <resource id="MageMe_WebForms::api_v1_forms_view" title="View Forms and Schema" sortOrder="10"/>
+                            <resource id="MageMe_WebForms::api_v1_forms_create" title="Create Forms" sortOrder="20"/>
+                            <resource id="MageMe_WebForms::api_v1_forms_edit" title="Edit and Publish Forms" sortOrder="25"/>
+                            <resource id="MageMe_WebForms::api_v1_forms_scripts" title="Edit Form Scripts" sortOrder="27"/>
+                            <resource id="MageMe_WebForms::api_submission" title="Submit Forms and Upload Files" sortOrder="30"/>
+                            <resource id="MageMe_WebForms::api_v1_results_view" title="View Submissions (Masked)" sortOrder="50"/>
+                            <resource id="MageMe_WebForms::api_v1_results_pii_read" title="Request Temporary Disclosure" sortOrder="55"/>
+                            <resource id="MageMe_WebForms::api_v1_results_pii_direct" title="Disclose Personal Data" sortOrder="57"/>
+                            <resource id="MageMe_WebForms::api_v1_results_edit" title="Edit Submissions" sortOrder="60"/>
+                            <resource id="MageMe_WebForms::api_v1_results_reply" title="Reply to Submissions" sortOrder="65"/>
+                            <resource id="MageMe_WebForms::api_v1_results_export" title="Export Submissions" sortOrder="70"/>
+                            <resource id="MageMe_WebForms::api_v1_attachments_read" title="Download Attachments" sortOrder="75"/>
+                            <resource id="MageMe_WebForms::api_v1_results_import" title="Import Submissions" sortOrder="80"/>
+                        </resource>
+                        <resource id="MageMe_WebForms::status_catalog" title="Manage Statuses" sortOrder="4"/>
+                        <resource id="MageMe_WebForms::all_forms" title="All Forms" sortOrder="100"/>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="MageMe_WebForms::settings" title="WebForms" sortOrder="2000"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
